@@ -33,14 +33,14 @@ jobs:
       - name: Send Account Summary Data to Power BI
         run: |
           source my_rpa_env/bin/activate
-          python send_data_1.py
+          python send_budget_vs_spending_report.py
 
       - name: Send Budget vs. Spending Data to Power BI
         run: |
           source my_rpa_env/bin/activate
-          python send_data_2.py
+          python send_account_summary_report.py
 
       - name: Send Unusual Transactions Data to Power BI
         run: |
           source my_rpa_env/bin/activate
-          python send_data_3.py
+          python send_unusual_transactions.py
