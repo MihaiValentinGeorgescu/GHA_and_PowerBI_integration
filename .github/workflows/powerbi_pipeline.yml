@@ -1,0 +1,46 @@
+name: Power BI Data Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12.3"
+
+      - name: Create Virtual Environment
+        run: |
+          python3 -m venv my_rpa_env
+          source my_rpa_env/bin/activate
+          pip install --upgrade pip
+          pip install rpa pandas requests matplotlib
+
+      - name: Run Data Processing Script
+        run: |
+          source my_rpa_env/bin/activate
+          python script.py
+
+      - name: Send Account Summary Data to Power BI
+        run: |
+          source my_rpa_env/bin/activate
+          python send_data_1.py
+
+      - name: Send Budget vs. Spending Data to Power BI
+        run: |
+          source my_rpa_env/bin/activate
+          python send_data_2.py
+
+      - name: Send Unusual Transactions Data to Power BI
+        run: |
+          source my_rpa_env/bin/activate
+          python send_data_3.py
